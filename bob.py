@@ -9,15 +9,16 @@ log = Logger()
 
 class Bob(object):
     def __init__(self):
-        pass
-    
-    def run(self, job):
+        self.__name__ = "Bob"
+        self.log = Logger(self.__name__)
+        
+
+    def execute(self, job):
+        bob.log.info("running {}".format(job))
         exec(open(job).read())
 
 
 if __name__ == "__main__":
     bob = Bob()
-    print(log)
     script = 'job/greet.py'
-    log.info("running {}".format(script))
-    bob.run(script)
+    bob.execute(script)
