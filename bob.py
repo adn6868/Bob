@@ -16,8 +16,7 @@ class Bob(object):
     def execute(self, job):
         bob.log.info("running {}".format(job))
         exec(open(job).read())
-
-
+# TODO : bob extendable by thread
 if __name__ == "__main__":
     bob = Bob()
     script = 'job/greet.py'
