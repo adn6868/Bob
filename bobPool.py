@@ -7,15 +7,10 @@ import datetime as dt
 log = Logger('bobPool')
 
 
-class PriorityQueue(object):
-    def __init__(self):
-        self.queue = []
-    def enQueue(self, job):
-        startTime = job.start
 
 
 class BobPool(object):
-    def __init__(self, name = 'Bob Pool: Chicago 01'):
+    def __init__(self, name='Bob Pool: Chicago 01'):
         self.__name__ = name
         self.jobList = {}
         self.jobQueue = Q.PriorityQueue()
@@ -26,16 +21,18 @@ class BobPool(object):
                     fileData = {}
                     for line in auto:
                         line = line.split(':')
-                        fileData[line[0].strip(' ')] = ''.join(line[1:])
+                        fileData[line[0].strip(' ')] = ''.join(line[1:]).strip('\n')
                     self.jobList[auto.name] = fileData
     def getJobQueue(self):
         for job in self.jobList:
             jobDetail = self.jobList[job]
-            self.jobQueue.put((jobDetail['start'],job))
+            print(jobDetail['start'])
+            a = dt.datetime.strptime(jobDetail['start'],'%H%M GMT')
+            print(a)
+            timeStart = dt.datetime.strptime(jobDetail['start'],'%H%M GMT')
+            self.jobQueue.put((timeStart,job))
 
-    # TODO: add priority Queue in Bob
     # TODO: add Bob multithread
-
 
 
 if __name__ == "__main__":
