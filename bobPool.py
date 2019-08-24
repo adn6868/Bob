@@ -40,7 +40,9 @@ if __name__ == "__main__":
     jobPool = BobPool()
     jobPool.getJobList()
     jobPool.getJobQueue()
-    pp.pprint(jobPool.jobList)
-    while not jobPool.jobQueue.empty():
-        pp.pprint(jobPool.jobQueue.get())
+    log = Logger()
+    log.infoB(jobPool.jobList)
+    # pp.pprint(jobPool.jobList)
+    # while not jobPool.jobQueue.empty():
+    #     pp.pprint(jobPool.jobQueue.get())
     
