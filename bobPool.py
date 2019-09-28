@@ -14,7 +14,7 @@ class BobPool(object):
         self.__name__ = name
         self.jobList = {}
         self.jobQueue = Q.PriorityQueue()
-    def getJobList(self,osPath = 'schedule'): # TODO: TOkken handling this
+    def getJobList(self,osPath = 'schedule'): # TODO: Tokken handling this
         for root, dirs, files in os.walk(osPath):
             for file in files:
                 with open(os.path.join(root, file), "r") as auto:

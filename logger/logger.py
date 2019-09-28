@@ -15,10 +15,18 @@ class Logger(object):
         rv = " {}: {}: {}\n".format(self.getTime(), self.name, data)
         sys.stdout.write(rv)
     def infoB(self, uglyData):
-        try:
-            uglyData = str(uglyData)
-        except:
-            raise IOError
-        beautyData = pp.pformat(uglyData)
         rv = " {}: {}:\n {}\n".format(self.getTime(), self.name, beautyData)
         sys.stdout.write(beautyData)
+
+
+def foo(name):ls
+    def __init__(self,name):
+        self.name = name
+    def getName(self):
+        return self.name
+
+
+if __name__ == '__main__':
+    a = foo("anh")
+    print(a.getName())
+
