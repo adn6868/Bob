@@ -19,8 +19,8 @@ class Logger(object):
         sys.stdout.write(rv)
 
     def infoB(self, uglyData):
-        rv = " {}: {}:\n {}\n".format(self.getTime(), self.name, beautyData)
-        sys.stdout.write(beautyData)
+        rv = " {}: {}:\n {}\n".format(self.getTime(), self.name, uglyData)
+        sys.stdout.write(uglyData)
 
 
 if __name__ == "__main__":
