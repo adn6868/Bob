@@ -19,7 +19,7 @@ class Logger(object):
         sys.stdout.write(beautyData)
 
 
-def foo(name):ls
+def foo(name):
     def __init__(self,name):
         self.name = name
     def getName(self):
