@@ -36,9 +36,11 @@ class BobPool(object):
             self.jobQueue.put((timeStart, job))
 
     def _executeBob(self, job):
-        self.log.info("Executing job {}".format(job))
+        # self.log.info("Executing job {}".format(job))
         jobDefinition = self.jobDict[job]
-        self.log.info("jobDefinition: {}".format(jobDefinition))
+        # self.log.info("jobDefinition: {}".format(jobDefinition))
+        newBob = Bob(jobDefinition)
+        newBob.run()
         # TODO: allow Bob.py to read job Definition
 
     def executeBob(self):
@@ -47,8 +49,6 @@ class BobPool(object):
             self.getJobQueue()
         self.pool = ThreadPool(len(self.jobDict))
         stdout = self.pool.map(self._executeBob, self.jobDict.keys())
-
-    # TODO: add Bob multithread
 
 
 if __name__ == "__main__":
