@@ -35,6 +35,7 @@ class Bob(object):
         if self.open():
             log.info("running {}".format(self.command))
             exec(open(self.command).read())
+            #TODO: Allow args from sch file
 
 
 # TODO : bob extendable by thread
