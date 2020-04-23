@@ -35,13 +35,9 @@ class BobPool(object):
             timeStart = dt.datetime.strptime(jobDetail["start"], "%H%M GMT")
             self.jobQueue.put((timeStart, job))
 
-    def _executeBob(self, job):
-        # self.log.info("Executing job {}".format(job))
-        jobDefinition = self.jobDict[job]
-        # self.log.info("jobDefinition: {}".format(jobDefinition))
+    def _executeBob(self, job):        jobDefinition = self.jobDict[job]
         newBob = Bob(jobDefinition)
         newBob.run()
-        # TODO: allow Bob.py to read job Definition
 
     def executeBob(self):
         if not self.jobDict:

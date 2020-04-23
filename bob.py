@@ -4,6 +4,7 @@ Bob main class
 @version:1.0
 """
 import sys
+import subprocess
 from datetime import datetime as dt
 from logger.logger import Logger
 
@@ -23,9 +24,12 @@ class Bob(object):
             self.priority = jobDict["priority"]
             self.notify = jobDict["notify"]
 
-    def execute(self, job):
-        bob.log.info("running {}".format(job))
-        exec(open(job).read())
+    def execute(self, command):
+        # exec(open(self.command).read())
+        file, args = command.split('--')
+        file = file.strip(' ')
+        args = " ".join("".join(args.split(' ')).split('-'))
+        subprocess.call(['python3 {} {}'.format(file, args)],shell=True)
 
     def open(self):
         now = dt.now().time()
@@ -34,13 +38,21 @@ class Bob(object):
     def run(self):
         if self.open():
             log.info("running {}".format(self.command))
-            exec(open(self.command).read())
-            #TODO: Allow args from sch file
+            if '--' in self.command:
+                file, args = self.command.split('--')
+                file = file.strip(' ')
+                args = " ".join("".join(args.split(' ')).split('-'))
+                # exec(open(self.command).read())
+                subprocess.call(['python3 {} {}'.format(file, args)],shell = True)
+            else:
+                file = self.command
+                subprocess.call(['python3 {}'.format(file)],shell=True)
 
 
 # TODO : bob extendable by thread
 
 if __name__ == "__main__":
     bob = Bob()
-    script = "job/greet.py"
+    script = "job/greet.py--"
+    # script = "job/greet.py --  -args0   -args1    -args2"
     bob.execute(script)
