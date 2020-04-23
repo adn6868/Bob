@@ -15,6 +15,7 @@ class BobPool(object):
         self.jobDict = {}
         self.jobQueue = Q.PriorityQueue()
         self.log = Logger()
+        self.status = 'Running'
 
     def genJobDict(self, osPath="schedule"):  # TODO: Tokken handling this
         for root, dirs, files in os.walk(osPath):
@@ -35,23 +36,28 @@ class BobPool(object):
             timeStart = dt.datetime.strptime(jobDetail["start"], "%H%M GMT")
             self.jobQueue.put((timeStart, job))
 
-    def _executeBob(self, job):        jobDefinition = self.jobDict[job]
+    def _executeBob(self, job):
+        jobDefinition = self.jobDict.pop(job)
         newBob = Bob(jobDefinition)
         newBob.run()
 
     def executeBob(self):
         if not self.jobDict:
-            self.genJobDict()
-            self.getJobQueue()
+            self.status = 'Completed'
+            return
         self.pool = ThreadPool(len(self.jobDict))
         stdout = self.pool.map(self._executeBob, self.jobDict.keys())
 
 
 if __name__ == "__main__":
-    serverOnline = True
+    serverStatus = 'Running'
     jobPool = BobPool()
     jobPool.genJobDict()
     jobPool.getJobQueue()
+    serverStatus = jobPool.status
     log = Logger()
     log.info(jobPool.jobQueue)
-    jobPool.executeBob()
+    while serverStatus == 'Running':
+        jobPool.executeBob()
+        serverStatus = jobPool.status
+    print('Job Pool {} at {}'.format(serverStatus,dt.datetime.now()))
