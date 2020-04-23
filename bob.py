@@ -33,6 +33,8 @@ class Bob(object):
 
     def open(self):
         now = dt.now().time()
+        print('now', now)
+        print(self.startTime < now)
         return self.startTime < now < self.endTime
 
     def run(self):

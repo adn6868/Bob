@@ -39,7 +39,15 @@ class BobPool(object):
     def _executeBob(self, job):
         jobDefinition = self.jobDict.pop(job)
         newBob = Bob(jobDefinition)
+        print("++++ {} ====".format(job))
+        print('startTime {}'.format(newBob.startTime))
+        print('endTime{}'.format(newBob.endTime))
         newBob.run()
+        if newBob.open():
+            newBob.run()
+        else:
+            self.jobDict[job] = jobDefinition
+        //TODO: Unbulde this deadlock bullshit
 
     def executeBob(self):
         if not self.jobDict:
