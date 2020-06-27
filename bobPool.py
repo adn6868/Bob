@@ -47,7 +47,7 @@ class BobPool(object):
             newBob.run()
         else:
             self.jobDict[job] = jobDefinition
-        //TODO: Unbulde this deadlock bullshit
+        # TODO: Unbulde this deadlock bullshit
 
     def executeBob(self):
         if not self.jobDict:
